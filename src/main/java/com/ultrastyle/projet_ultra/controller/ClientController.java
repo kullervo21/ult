@@ -37,9 +37,14 @@ public class ClientController {
         }
     }
 
-    @PostMapping({"/logUser/{mail}/{password}"})
-    public Client getClient(@PathVariable String mail, @PathVariable String password) {
-        return clientDao.findClientByIdPasswd(mail, password);
+    @PostMapping({"/logUser"})
+    public Client getClient(@RequestBody Client client) {
+        //return clientDao.findClientByIdPasswd(client.getAdresse_mail(), client.getPassword());
+        Client clt = clientDao.findById(client.getAdresse_mail()).orElse(null);
+        if (clt!=null && clt.getPassword().equals(client.getPassword())){
+            return clt;
+        }
+        return null;
     }
 
 }
