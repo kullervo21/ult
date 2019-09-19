@@ -8,7 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientDao extends JpaRepository<Client, String> {
 
-    @Query("SELECT c FROM Client c WHERE c.adresse_mail = ?1 and c.password = ?2")
-    Client findClientByIdPasswd(String adresse_mail, String password);
 
 }

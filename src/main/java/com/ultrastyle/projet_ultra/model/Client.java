@@ -6,7 +6,10 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name="client")
@@ -32,6 +35,8 @@ private String telephone;
 private Boolean admin = false;
 @Column(name = "password")
 private String password;
+@Transient
+private List<LigneCommande> panier = new ArrayList<>();
 
 @JsonBackReference("commande")
 @OneToMany(mappedBy = "client")
@@ -44,10 +49,19 @@ private List<Commande> commandeList;
     }
 
 
+
+
     /**
      * Getters et Setters
      */
 
+    public List<LigneCommande> getPanier() {
+        return panier;
+    }
+
+    public void setPanier(List<LigneCommande> panier) {
+        this.panier = panier;
+    }
 
     public String getAdresse_mail() {
         return adresse_mail;

@@ -1,13 +1,14 @@
 package com.ultrastyle.projet_ultra.controller;
 import com.ultrastyle.projet_ultra.dao.ClientDao;
+import com.ultrastyle.projet_ultra.dao.ProduitDao;
 import com.ultrastyle.projet_ultra.model.Client;
+import com.ultrastyle.projet_ultra.model.Produit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -15,6 +16,7 @@ import java.util.List;
 public class ClientController {
 
     private ClientDao clientDao;
+    private ProduitDao produitDao;
 
 
     @Autowired
@@ -39,12 +41,10 @@ public class ClientController {
 
     @PostMapping({"/logUser"})
     public Client getClient(@RequestBody Client client) {
-        //return clientDao.findClientByIdPasswd(client.getAdresse_mail(), client.getPassword());
         Client clt = clientDao.findById(client.getAdresse_mail()).orElse(null);
         if (clt!=null && clt.getPassword().equals(client.getPassword())){
             return clt;
         }
         return null;
     }
-
 }

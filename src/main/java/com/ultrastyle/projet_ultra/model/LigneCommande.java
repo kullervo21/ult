@@ -17,7 +17,7 @@ private Integer numeroLigne;
 @Column(name = "qte_commandee")
 private Integer qteCommandee;
 @ManyToOne
-@JoinColumn(name = "numero_commande", insertable = false, updatable = false)
+@JoinColumn(name = "numero_commande")
 private Commande commande;
 @ManyToOne
 @JoinColumn(name = "numero_poduit" )
