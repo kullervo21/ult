@@ -1,40 +1,41 @@
 package com.ultrastyle.projet_ultra.controller;
-import com.ultrastyle.projet_ultra.dao.CommandeDao;
-import com.ultrastyle.projet_ultra.dao.LigneCommandeDao;
+import com.ultrastyle.projet_ultra.repository.CommandeRepository;
+import com.ultrastyle.projet_ultra.repository.LigneCommandeRepository;
 import com.ultrastyle.projet_ultra.model.Commande;
 import com.ultrastyle.projet_ultra.model.LigneCommande;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
-@CrossOrigin
+@Transactional
 @RestController
+@CrossOrigin("http://localhost:4200")
 public class CommandeController {
 
-    private CommandeDao commandeDao;
-    private LigneCommandeDao ligneCommandeDao;
+    private final CommandeRepository commandeRepository;
+    private final LigneCommandeRepository ligneCommandeRepository;
 
     @Autowired
-    public CommandeController(CommandeDao commandeDao, LigneCommandeDao ligneCommandeDao) {
-        this.commandeDao = commandeDao;
-        this.ligneCommandeDao = ligneCommandeDao;
+    public CommandeController(CommandeRepository commandeRepository, LigneCommandeRepository ligneCommandeRepository) {
+        this.commandeRepository = commandeRepository;
+        this.ligneCommandeRepository = ligneCommandeRepository;
     }
 
     @GetMapping({"listCommande"})
     public List<Commande> getListCommande(){
-        return commandeDao.findAll();
+        return commandeRepository.findAll();
     }
 
     @PostMapping({"/ajoutPanier"})
     public void ajoutPanier(@RequestBody Commande commande ){
-        commandeDao.save(commande);
+        commandeRepository.save(commande);
         commande.setDateCommande(LocalDate.now());
         for (LigneCommande ligneCommande : commande.getLigneCommandeList()) {
             ligneCommande.setCommande(commande);
         }
-        ligneCommandeDao.saveAll(commande.getLigneCommandeList());
+        ligneCommandeRepository.saveAll(commande.getLigneCommandeList());
     }
 }
