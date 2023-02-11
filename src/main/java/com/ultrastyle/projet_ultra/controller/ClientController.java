@@ -32,14 +32,14 @@ public class ClientController {
 
 //TODO : condition retourne tjs true, mettre try catch
     @PostMapping({"/addUser"})
-    public ResponseEntity<String> addUser(@RequestBody Client client){
+    public ResponseEntity addUser(@RequestBody Client client){
         ResponseEntity response = new ResponseEntity(null);
         try {
             clientRepository.save(client);
-            response.status(HttpStatus.CREATED).body("{\"message\":\"Utilisateur créé avec succès\"}");
+            ResponseEntity.status(HttpStatus.CREATED).body("{\"message\":\"Utilisateur créé avec succès\"}");
         } catch (Exception e) {
             System.out.println("Problem during the persistence");
-            response.status(HttpStatus.METHOD_FAILURE).body("{\"message\":\"Utilisateur n'est pas créé avec succès\"}");
+            ResponseEntity.status(HttpStatus.METHOD_FAILURE).body("{\"message\":\"Utilisateur n'est pas créé avec succès\"}");
             throw (e);
         } finally {
             System.out.println("Transaction end !");

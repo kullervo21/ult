@@ -1,17 +1,18 @@
 package com.ultrastyle.projet_ultra.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Entity
+@Getter
+@Setter
 @Table(name="client")
 @EntityListeners(AuditingEntityListener.class)
 public class Client implements Serializable {
@@ -48,97 +49,4 @@ private List<Commande> commandeList;
     public Client() {
     }
 
-
-
-
-    /**
-     * Getters et Setters
-     */
-
-    public List<LigneCommande> getPanier() {
-        return panier;
-    }
-
-    public void setPanier(List<LigneCommande> panier) {
-        this.panier = panier;
-    }
-
-    public String getAdresse_mail() {
-        return adresse_mail;
-    }
-
-    public void setAdresse_mail(String adresse_mail) {
-        this.adresse_mail = adresse_mail;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
-
-    public String getCp() {
-        return cp;
-    }
-
-    public void setCp(String cp) {
-        this.cp = cp;
-    }
-
-    public String getVille() {
-        return ville;
-    }
-
-    public void setVille(String ville) {
-        this.ville = ville;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public Boolean getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
-    }
-
-    public List<Commande> getCommandeList() {
-        return commandeList;
-    }
-
-    public void setCommandeList(List<Commande> commandeList) {
-        this.commandeList = commandeList;
-    }
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
