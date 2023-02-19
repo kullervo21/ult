@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 // Indique que les transactions sont gérées par le framework Spring
 @Transactional
@@ -26,9 +27,20 @@ public class ProduitController {
     }
 
     // Récupère la liste de tous les produits en appelant la méthode findAll() du repository
-    @GetMapping({"/listProduit"})
+    @GetMapping({"/admin/listProduit"})
     public List<Produit> getProduitList() {
         return produitRepository.findAll();
+    }
+
+    @GetMapping({"/admin/{id}/listProduit/"})
+    public Produit getProduitListById(@PathVariable Integer id) {
+        Optional<Produit> produitOptional = produitRepository.findByNumeroProduit(id);
+        if (produitOptional.isPresent()) {
+            Produit produit = produitOptional.get();
+            return produit;
+        } else {
+            return null;
+        }
     }
 
     // Ajoute un nouveau produit en appelant la méthode save() du repository

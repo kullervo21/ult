@@ -1,5 +1,6 @@
 package com.ultrastyle.projet_ultra.controller;
 import com.ultrastyle.projet_ultra.model.Client;
+import com.ultrastyle.projet_ultra.repository.ClientRepository;
 import com.ultrastyle.projet_ultra.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,30 +8,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Transactional
 @RestController
 @CrossOrigin("http://localhost:4200")
 public class ClientController {
 
-    /*private final ClientRepository clientRepository;
-    private ProduitRepository produitRepository;*/
     private final ClientService clientService;
+    private final ClientRepository clientRepository;
 
     @Autowired
-    public ClientController(ClientService clientService) {
+    public ClientController(ClientService clientService,
+                            ClientRepository clientRepository) {
         this.clientService = clientService;
-    }
-
-    /* @Autowired
-    public ClientController(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
-
-    @GetMapping({"/listClient"})
-    public List<Client> getListClient(){
-        return clientRepository.findAll();
-    }
-*/
 
     @PostMapping({"/addUser"})
     public ResponseEntity<?> addUser(@RequestBody Client client){
@@ -44,15 +37,8 @@ public class ClientController {
         }
     }
 
-    /*
-    @PostMapping({"/logUser"})
-    public Client getClient(@RequestBody Client client) {
-        Client clt = clientRepository.findById(client.getAdresseMail()).orElse(null);
-        if (clt!=null && clt.getPassword().equals(client.getPassword())){
-            return clt;
-        }
-        return null;
+    @GetMapping({"/listUser"})
+    public List<Client> getUserList(){
+        return clientRepository.findAll();
     }
-    */
-
 }
