@@ -18,8 +18,8 @@ import java.util.List;
 public class Client implements Serializable {
 
 @Id
-@Column(name = "adresse_mail")
-private String adresse_mail;
+@Column(name = "adresseMail")
+private String adresseMail;
 @Column(name = "nom")
 private String nom;
 @Column(name = "prenom")
@@ -36,6 +36,11 @@ private String telephone;
 private Boolean admin = false;
 @Column(name = "password")
 private String password;
+
+@OneToOne(fetch = FetchType.EAGER)
+@JoinColumn(name = "role_id")
+private Role role;
+
 @Transient
 private List<LigneCommande> panier = new ArrayList<>();
 

@@ -20,7 +20,7 @@ private Integer numeroCommande;
 @Column(name = "date_commande")
 private LocalDate dateCommande;
 @ManyToOne
-@JoinColumn(name = "adresse_mail")
+@JoinColumn(name = "adresseMail")
 private Client client;
 @JsonBackReference("ligneCommande")
 @OneToMany(mappedBy = "commande")
