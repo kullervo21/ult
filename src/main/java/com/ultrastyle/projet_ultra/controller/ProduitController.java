@@ -24,4 +24,5 @@ public class ProduitController {
         return produitDao.findAll();
     }
 
+
 }
